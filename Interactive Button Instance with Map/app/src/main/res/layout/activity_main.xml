@@ -59,20 +59,23 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="358dp"
         android:text="Alarm: On"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/map_preview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="243dp"
+
+    <fragment
+        android:id="@+id/map_preview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="404dp"
         android:layout_height="256dp"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="404dp"
         app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image111111" />
+        tools:ignore="MissingConstraints" />
+
 
     <Button
         android:id="@+id/button"

@@ -1,6 +1,7 @@
 package com.example.drones
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,6 +27,11 @@ public class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
+
+        val backButton: Button = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            finish() // This will close the current activity and return to the previous one
+        }
     }
     // [END maps_marker_get_map_async]
     // [END_EXCLUDE]
