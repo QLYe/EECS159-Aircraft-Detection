@@ -10,6 +10,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="Open Map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,6 +26,7 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="219dp"
         android:text="Current Status: N/A"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +37,7 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="272dp"
         android:text="Nearest Aircraft"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +48,7 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="318dp"
         android:text="Safety Level: N/A"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +59,7 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="358dp"
         android:text="Alarm: On"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,7 +68,8 @@
         android:layout_width="243dp"
         android:layout_height="256dp"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="459dp"
+        android:layout_marginTop="404dp"
+        app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image111111" />
@@ -75,12 +81,13 @@
         android:layout_marginStart="59dp"
         android:layout_marginTop="31dp"
         android:layout_marginEnd="59dp"
-        android:layout_marginBottom="619dp"
         android:text="Start Detection"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
