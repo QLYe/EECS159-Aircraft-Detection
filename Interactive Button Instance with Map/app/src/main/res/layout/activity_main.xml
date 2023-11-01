@@ -66,16 +66,15 @@
 
     <fragment
         android:id="@+id/map_preview"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="404dp"
-        android:layout_height="256dp"
-        android:layout_marginStart="0dp"
+        android:name="com.example.drones.fragmented_class"
+        android:layout_width="411dp"
+        android:layout_height="246dp"
         android:layout_marginTop="404dp"
         app:layout_constraintBottom_toTopOf="@+id/button1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
-
 
     <Button
         android:id="@+id/button"

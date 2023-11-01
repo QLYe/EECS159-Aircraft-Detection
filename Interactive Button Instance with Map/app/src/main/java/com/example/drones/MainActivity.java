@@ -1,24 +1,39 @@
 package com.example.drones;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.RelativeLayout;
 import android.widget.Button;
 
 import android.os.Bundle;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import android.animation.ObjectAnimator;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+public class MainActivity extends AppCompatActivity {
 
+
+
+    private int mMapLayoutState = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,29 +43,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
-                Toast.makeText(getApplicationContext(), "Toast", Toast.LENGTH_SHORT).show();
-                startActivity(intent1);
+                if (view.getId() == R.id.button1){
+                    Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
+                    Toast.makeText(getApplicationContext(), "Toast", Toast.LENGTH_SHORT).show();
+                    startActivity(intent1);
+                }
             }
         });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_preview);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmented_class myfrag = new fragmented_class();
+        fragmentTransaction.add(R.id.map_preview, myfrag);
+        fragmentTransaction.commit();
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng uci = new LatLng(33.6424, -117.8417);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uci, 10));
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Intent intent = new Intent(MainActivity.this, MapsMarkerActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
+
+
 }
