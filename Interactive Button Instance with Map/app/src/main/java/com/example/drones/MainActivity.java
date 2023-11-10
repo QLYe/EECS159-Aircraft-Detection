@@ -16,7 +16,24 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+    class show_intel extends Thread {
+        @Override
+        public void run() {
+            try {
+                ADSBApiFetcher s = new ADSBApiFetcher();
+                final String aircraft_data = s.fetchAircraftData(33.6424, -117.8417, 10);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), aircraft_data , Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+        }
+    }
     private GoogleMap mMap;
 
     @Override
@@ -24,24 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = findViewById(R.id.button1);
-        class show_intel extends Thread {
-            @Override
-            public void run() {
-                try {
-                    ADSBApiFetcher s = new ADSBApiFetcher();
-                    final String aircraft_data = s.fetchAircraftData(33.6424, -117.8417, 10);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), aircraft_data , Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            }
-        }
 
         int a = 0;
         if (a == 0)
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             this_thread.start();
             a  = 1;
         }
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
