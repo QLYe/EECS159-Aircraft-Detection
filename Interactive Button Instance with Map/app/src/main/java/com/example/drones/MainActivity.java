@@ -23,8 +23,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button button = findViewById(R.id.button1);
+        class show_intel extends Thread {
+            @Override
+            public void run() {
+                try {
+                    ADSBApiFetcher s = new ADSBApiFetcher();
+                    final String aircraft_data = s.fetchAircraftData(33.6424, -117.8417, 10);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), aircraft_data , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        int a = 0;
+        if (a == 0)
+        {
+            show_intel this_thread = new show_intel();
+            this_thread.start();
+            a  = 1;
+        }
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
