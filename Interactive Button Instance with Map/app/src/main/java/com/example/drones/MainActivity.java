@@ -29,8 +29,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int a = 0;
         if (a == 0)
         {
-            ADSBApiFetcher s = new ADSBApiFetcher();
-            Toast.makeText(getApplicationContext(), s.fetchAircraftData(33.6424, -117.8417, 10) , 2).show();
+            ADSBApiFetcher s = new ADSBApiFetcher(37.7749, -122.4194, 50);
+            s.setLatLon();
+            Toast.makeText(getApplicationContext(), Double.toString(s.getResultLon()) , 2).show();
             a  = 1;
         }
 
