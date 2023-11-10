@@ -25,6 +25,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         Button button = findViewById(R.id.button1);
+
+        int a = 0;
+        if (a == 0)
+        {
+            ADSBApiFetcher s = new ADSBApiFetcher();
+            Toast.makeText(getApplicationContext(), s.fetchAircraftData(33.6424, -117.8417, 10) , 2).show();
+            a  = 1;
+        }
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
