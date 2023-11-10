@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Call
+import java.util.Timer
+import java.util.TimerTask
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
@@ -59,31 +61,37 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    /**
-     * Fetch aircraft data from API and show them on the map.
-     * @param googleMap The GoogleMap instance
-     * @param lat Latitude for the center point
-     * @param lon Longitude for the center point
-     * @param radius Radius to fetch data within
-     */
+
     private fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double) {
-        val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
-        call.enqueue(object : Callback<AircraftResponse> {
-            override fun onResponse(call: Call<AircraftResponse>, response: Response<AircraftResponse>) {
-                // Iterate through the aircraft list and add markers on the map
-                response.body()?.ac?.forEach { aircraft ->
-                    googleMap.addMarker(
-                            MarkerOptions()
-                                    .position(LatLng(aircraft.lat, aircraft.lon))
-                                    .title("Speed: ${aircraft.speed}")
-                                    .snippet("Lat: ${aircraft.lat}, Lon: ${aircraft.lon}")
-                    )
-                }
+        val timer = Timer()
+        val timerTask = object : TimerTask() {
+            override fun run() {
+
+                val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
+                call.enqueue(object : Callback<AircraftResponse> {
+                    override fun onResponse(call: Call<AircraftResponse>, response: Response<AircraftResponse>) {
+
+                        googleMap.clear()
+
+                        response.body()?.ac?.forEach { aircraft ->
+                            googleMap.addMarker(
+                                    MarkerOptions()
+                                            .position(LatLng(aircraft.lat, aircraft.lon))
+                                            .title("Speed: ${aircraft.speed}")
+                                            .snippet("Lat: ${aircraft.lat}, Lon: ${aircraft.lon}")
+                            )
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AircraftResponse>, t: Throwable) {
+
+                        Toast.makeText(this@MapsMarkerActivity, "fail to fetch the data", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
-            // Show a toast message when API call fails
-            override fun onFailure(call: Call<AircraftResponse>, t: Throwable) {
-                Toast.makeText(this@MapsMarkerActivity, "fail to fetch the data", Toast.LENGTH_SHORT).show()
-            }
-        })
+        }
+
+
+        timer.scheduleAtFixedRate(timerTask, 0, 2000)
     }
 }
