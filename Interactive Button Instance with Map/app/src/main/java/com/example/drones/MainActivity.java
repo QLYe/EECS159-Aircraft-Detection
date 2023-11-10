@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         {
             ADSBApiFetcher s = new ADSBApiFetcher(37.7749, -122.4194, 50);
             s.setLatLon();
-            Toast.makeText(getApplicationContext(), Double.toString(s.getResultLon()) , 2).show();
+            Toast.makeText(getApplicationContext(), Integer.toString(s.c) , 2).show();
             a  = 1;
         }
 
