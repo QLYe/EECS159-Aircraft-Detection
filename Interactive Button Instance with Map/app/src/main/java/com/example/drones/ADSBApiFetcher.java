@@ -16,7 +16,6 @@ public class ADSBApiFetcher {
     private double rad;
     private double resultLat;
     private double resultLon;
-    private String result;
     int c;
     Call<ApiInterface.AircraftResponse> call;
     ADSBApiFetcher(double lat, double lon, double rad)
@@ -24,7 +23,6 @@ public class ADSBApiFetcher {
         this.lat = lat;
         this.lon = lon;
         this.rad = rad;
-        c = 0;
     }
 
     void setLatLon() {
@@ -33,11 +31,11 @@ public class ADSBApiFetcher {
             @Override
             public void onResponse(Call<ApiInterface.AircraftResponse> call, Response<ApiInterface.AircraftResponse> response) {
                 // Iterate through the aircraft list and add markers on the map
+                c+= 1;
                 if (response.body() != null) {
                     for (ApiInterface.Aircraft aircraft : response.body().getAc()) {
                         resultLat = aircraft.getLat();
                         resultLon = aircraft.getLon();
-                        c+= 1;
                     }
                 }
             }

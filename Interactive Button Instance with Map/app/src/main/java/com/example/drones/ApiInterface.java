@@ -12,7 +12,6 @@ public interface ApiInterface {
             @Path("lon") double longitude,
             @Path("radius") double radius
     );
-}
 
     class AircraftResponse {
         private List<Aircraft> ac;
@@ -57,3 +56,4 @@ public interface ApiInterface {
             this.speed = speed;
         }
     }
+}

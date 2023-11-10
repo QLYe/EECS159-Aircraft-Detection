@@ -15,8 +15,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+    interface RequestUser{
+        @GET("/api/users/{uid}")
+        Call<UserData> getUser(@Path("uid") String uid);
+    }
     private GoogleMap mMap;
 
     @Override
@@ -26,14 +37,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Button button = findViewById(R.id.button1);
 
-        int a = 0;
-        if (a == 0)
-        {
-            ADSBApiFetcher s = new ADSBApiFetcher(37.7749, -122.4194, 50);
-            s.setLatLon();
-            Toast.makeText(getApplicationContext(), Integer.toString(s.c) , 2).show();
-            a  = 1;
+        Call<ApiInterface.AircraftResponse>call = RetrofitClient.getInstance().getAircraftData(37.66, -112, 40);
+        call.enqueue(new Callback<ApiInterface.AircraftResponse>() {
+        @Override
+        public void onResponse(Call<ApiInterface.AircraftResponse> call, Response<ApiInterface.AircraftResponse> response) {
+            // Iterate through the aircraft list and add markers on the map
+            if (response.body() != null) {
+                for (ApiInterface.Aircraft aircraft : response.body().getAc()) {
+                    Toast.makeText(getApplicationContext(), Double.toString(aircraft.getLat()) , 1).show();
+                }
+            }
         }
+        @Override
+        public void onFailure(Call<ApiInterface.AircraftResponse> call, Throwable t) {
+
+        }
+        });
+        /*Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://reqres.in")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestUser requestUser = retrofit.create(RequestUser.class);
+
+        requestUser.getUser("3").enqueue(new Callback<UserData>() {
+            @Override
+            public void onResponse(Call<UserData> call, Response<UserData> response) {
+                Toast.makeText(getApplicationContext(), response.body().data.first_name , 2).show();
+            }
+
+            @Override
+            public void onFailure(Call<UserData> call, Throwable t) {
+
+            }
+
+        });*/
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
