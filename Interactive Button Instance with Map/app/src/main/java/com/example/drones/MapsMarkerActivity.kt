@@ -10,12 +10,16 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Call
+import java.util.Timer
+import java.util.TimerTask
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 // [START maps_marker_on_map_ready]
-public class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // [START_EXCLUDE]
     // [START maps_marker_get_map_async]
@@ -39,26 +43,56 @@ public class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
     // [START maps_marker_on_map_ready_add_marker]
     override fun onMapReady(googleMap: GoogleMap) {
         val uci = LatLng(33.6424, -117.8417)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(uci)
-                .title("Marker at UCI")
-        )
+        googleMap.addMarker(MarkerOptions().position(uci).title("Marker at UCI"))
+
         val sna = LatLng(33.6741, -117.869)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(sna)
-                .title("Marker at SNA")
-        )
+        googleMap.addMarker(MarkerOptions().position(sna).title("Marker at SNA"))
+
         val daiso = LatLng(33.706270, -117.783910)
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(daiso)
-                .title("Marker at Daiso")
-        )
-        // [START_EXCLUDE silent]
+        googleMap.addMarker(MarkerOptions().position(daiso).title("Marker at Daiso"))
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(uci))
-        // [END_EXCLUDE]
+
+        fetchAircraftData(googleMap, 33.6424, -117.8417, 20.0)
+
+        googleMap.setOnMarkerClickListener { marker ->
+            marker.showInfoWindow()
+            true
+        }
     }
-    // [END maps_marker_on_map_ready_add_marker]
+
+
+
+}
+fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double) {
+    val timer = Timer()
+    val timerTask = object : TimerTask() {
+        override fun run() {
+
+            val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
+            call.enqueue(object : Callback<AircraftResponse> {
+                override fun onResponse(call: Call<AircraftResponse>, response: Response<AircraftResponse>) {
+
+                    googleMap.clear()
+
+                    response.body()?.ac?.forEach { aircraft ->
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(LatLng(aircraft.lat, aircraft.lon))
+                                .title("Speed: ${aircraft.speed}")
+                                .snippet("Lat: ${aircraft.lat}, Lon: ${aircraft.lon}")
+                        )
+                    }
+                }
+
+                override fun onFailure(call: Call<AircraftResponse>, t: Throwable) {
+
+                    //Toast.makeText(GoogleMap, "fail to fetch the data", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+
+    timer.scheduleAtFixedRate(timerTask, 0, 5000)
 }
