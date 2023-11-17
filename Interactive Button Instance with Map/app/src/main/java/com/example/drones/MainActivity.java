@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
                 Toast.makeText(getApplicationContext(), "Toast", Toast.LENGTH_SHORT).show();
-                intent1.putExtra(APIDATA_CODE, apidata);
+                intent1.putExtra(APIDATA_CODE, apidata.getFirstLat());
                 startActivity(intent1);
             }
         });
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
 
 
 }

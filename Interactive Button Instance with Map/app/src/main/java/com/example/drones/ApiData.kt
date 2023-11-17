@@ -9,6 +9,7 @@ import retrofit2.Response
 import java.util.Timer
 import java.util.TimerTask
 import java.util.Vector
+import android.util.Log
 
 class ApiData (){
     private val result = Vector<List<Double>>()
@@ -17,6 +18,9 @@ class ApiData (){
         val timerTask = object : TimerTask() {
             override fun run() {
                 //may have sync problem
+                /*for (a in result){
+                    Log.d("api test", a[0].toBigDecimal().toPlainString())
+                }*/
                 result.clear()
                 val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
                 call.enqueue(object : Callback<AircraftResponse> {
@@ -42,7 +46,19 @@ class ApiData (){
     }
 
     fun getResult(): Vector<List<Double>> {
+        Log.d("get result test test", "inside get result")
+        for (a in result){
+            Log.i("get result test test", a[0].toBigDecimal().toPlainString())
+        }
         return result
     }
+    fun getFirstLat(): Double{
+        var b = -1.0
+        for (a in result){
+            b =  a[0]
+        }
+        return b
+    }
+
 
 }
