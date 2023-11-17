@@ -12,6 +12,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.Timer
 import java.util.TimerTask
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.widget.Toast;
 
 
 /**
@@ -59,8 +63,9 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(uci))
         //apidata.fetchAircraftData(33.6424, -117.8417, 20.0)
+
         Log.d("first lat test", firstLat.toString())
-        //fetchAircraftData(googleMap,33.6424, -117.8417, 20.0)
+        fetchAircraftData(googleMap,33.6424, -117.8417, 20.0, this)
         /*Timer().schedule(
             object : TimerTask() {
                 override fun run() {
@@ -81,7 +86,7 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
 
 }
 
-fun fetchAircraftData(googleMap: GoogleMap, apidata: ApiData) {
+/*fun fetchAircraftData(googleMap: GoogleMap, apidata: ApiData) {
     val timer = Timer()
     val timerTask = object : TimerTask() {
         override fun run() {
@@ -125,8 +130,8 @@ fun fetchAircraftData(googleMap: GoogleMap, apidata: ApiData) {
         }
     }
     timer.scheduleAtFixedRate(timerTask, 0, 5000)
-}
-/*fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double) {
+}*/
+fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double, mapsMarkerActivity: MapsMarkerActivity) {
     val timer = Timer()
     val timerTask = object : TimerTask() {
         override fun run() {
@@ -144,6 +149,7 @@ fun fetchAircraftData(googleMap: GoogleMap, apidata: ApiData) {
                                 .title("Speed: ${aircraft.speed}")
                                 .snippet("Lat: ${aircraft.lat}, Lon: ${aircraft.lon}")
                         )
+                        Toast.makeText(mapsMarkerActivity.getApplicationContext(), "Warining, aircraft within 20nm", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -157,4 +163,4 @@ fun fetchAircraftData(googleMap: GoogleMap, apidata: ApiData) {
 
 
     timer.scheduleAtFixedRate(timerTask, 0, 5000)
-}*/
+}

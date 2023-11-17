@@ -55,6 +55,7 @@ class ApiData (){
     fun getFirstLat(): Double{
         var b = -1.0
         for (a in result){
+            Log.d("first lat in api test", b.toString())
             b =  a[0]
         }
         return b

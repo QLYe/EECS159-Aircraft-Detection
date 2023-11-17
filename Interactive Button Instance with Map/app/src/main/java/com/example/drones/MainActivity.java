@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         //refresh apidata
-        apidata.fetchAircraftData(33.6424, -117.8417, 20);
+        //apidata.fetchAircraftData(33.6424, -117.8417, 20);
 
         Button button = findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
                 Toast.makeText(getApplicationContext(), "Toast", Toast.LENGTH_SHORT).show();
-                intent1.putExtra(APIDATA_CODE, apidata.getFirstLat());
+                //intent1.putExtra(APIDATA_CODE, apidata.getFirstLat());
                 startActivity(intent1);
             }
         });
