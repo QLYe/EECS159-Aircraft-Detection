@@ -20,7 +20,6 @@ import java.util.TimerTask
  */
 // [START maps_marker_on_map_ready]
 class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
-
     // [START_EXCLUDE]
     // [START maps_marker_get_map_async]
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +34,10 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         val backButton: Button = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             finish() // This will close the current activity and return to the previous one
+        }
+        if(intent.hasExtra(MainActivity."apidata")){
+            // getting the Parcelable object into the employeeModel
+            employeeModel= intent.getParcelableExtra(MainActivity.SECOND_ACTIVITY_CODE)
         }
     }
     // [END maps_marker_get_map_async]
@@ -53,7 +56,7 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(uci))
 
-        fetchAircraftData(googleMap, 33.6424, -117.8417, 20.0)
+        fetchAircraftData(googleMap,33.6424, -117.8417, 20.0)
 
         googleMap.setOnMarkerClickListener { marker ->
             marker.showInfoWindow()
@@ -64,6 +67,16 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 }
+
+/*fun fetchAircraftData(googleMap: GoogleMap) {
+    var result = ApiData.fetchAircraftData()
+    googleMap.clear()
+    googleMap.addMarker(
+        MarkerOptions()
+            .position(LatLng(aircraft.lat, aircraft.lon))
+            .title("Speed: ${aircraft.speed}")
+            .snippet("Lat: ${aircraft.lat}, Lon: ${aircraft.lon}")
+}*/
 fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double) {
     val timer = Timer()
     val timerTask = object : TimerTask() {

@@ -10,9 +10,9 @@ import java.util.Timer
 import java.util.TimerTask
 import java.util.Vector
 
-class ApiData (val lat: Double, val lon: Double, val rad: Double){
+class ApiData (){
     private val result = Vector<List<Double>>()
-    fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double) {
+    fun fetchAircraftData(lat: Double, lon: Double, radius: Double) {
         val timer = Timer()
         val timerTask = object : TimerTask() {
             override fun run() {
@@ -21,7 +21,6 @@ class ApiData (val lat: Double, val lon: Double, val rad: Double){
                 val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
                 call.enqueue(object : Callback<AircraftResponse> {
                     override fun onResponse(call: Call<AircraftResponse>, response: Response<AircraftResponse>) {
-                        googleMap.clear()
 
                         response.body()?.ac?.forEach { aircraft ->
                             var templist = listOf(aircraft.lat, aircraft.lon, aircraft.speed)
@@ -41,4 +40,9 @@ class ApiData (val lat: Double, val lon: Double, val rad: Double){
 
         timer.scheduleAtFixedRate(timerTask, 0, 5000)
     }
+
+    fun getResult(): Vector<List<Double>> {
+        return result
+    }
+
 }

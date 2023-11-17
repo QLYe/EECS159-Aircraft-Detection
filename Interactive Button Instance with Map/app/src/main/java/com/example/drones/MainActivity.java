@@ -14,15 +14,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import java.util.Vector;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private ApiData apidata = new ApiData();
+    public static final String APIDATA_CODE = "apidata";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //refresh apidata
+        apidata.fetchAircraftData(33.6424, -117.8417, 20);
 
         Button button = findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
                 Toast.makeText(getApplicationContext(), "Toast", Toast.LENGTH_SHORT).show();
+                intent1.putExtra(APIDATA_CODE, apidata);
                 startActivity(intent1);
             }
         });
@@ -53,4 +61,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
+
 }
