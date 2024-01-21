@@ -8,8 +8,9 @@ import java.util.Timer
 import java.util.TimerTask
 
 class Alert {
+    val timer = Timer()
     fun fetchAircraftData(mainActivity:MainActivity, lat: Double, lon: Double, radius: Double) {
-        val timer = Timer()
+
         val timerTask = object : TimerTask() {
             override fun run() {
 
@@ -20,7 +21,7 @@ class Alert {
                         response.body()?.ac?.forEach { aircraft ->
                             val alat: String = String.format("%.3f", aircraft.lat)
                             val alon: String = String.format("%.3f", aircraft.lon)
-                            Toast.makeText(mainActivity.getApplicationContext(), alat+alon, Toast.LENGTH_SHORT)
+                            Toast.makeText(mainActivity.getApplicationContext(), alat+" "+alon, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -33,4 +34,10 @@ class Alert {
         }
         timer.scheduleAtFixedRate(timerTask, 0, 5000)
     }
+    fun cancelFetchingData()
+    {
+        timer.cancel();
+        timer.purge();
+    }
+
 }
