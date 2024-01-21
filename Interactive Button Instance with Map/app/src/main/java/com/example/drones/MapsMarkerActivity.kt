@@ -65,7 +65,7 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         //apidata.fetchAircraftData(33.6424, -117.8417, 20.0)
 
         Log.d("first lat test", firstLat.toString())
-        fetchAircraftData(googleMap,33.6424, -117.8417, 20.0, this)
+        //fetchAircraftData(googleMap,33.6424, -117.8417, 20.0, this)
         /*Timer().schedule(
             object : TimerTask() {
                 override fun run() {
@@ -131,7 +131,7 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
     }
     timer.scheduleAtFixedRate(timerTask, 0, 5000)
 }*/
-fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double, mapsMarkerActivity: MapsMarkerActivity) {
+/*fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Double, mapsMarkerActivity: MapsMarkerActivity) {
     val timer = Timer()
     val timerTask = object : TimerTask() {
         override fun run() {
@@ -163,4 +163,4 @@ fun fetchAircraftData(googleMap: GoogleMap, lat: Double, lon: Double, radius: Do
 
 
     timer.scheduleAtFixedRate(timerTask, 0, 5000)
-}
+}*/

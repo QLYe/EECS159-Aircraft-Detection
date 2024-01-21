@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
 
-        Button button = findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button1 = findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, MapsMarkerActivity.class);
@@ -46,6 +46,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+
+        Alert alert = new Alert();
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 20);
+
+            }
+        });
     }
 
     @Override
