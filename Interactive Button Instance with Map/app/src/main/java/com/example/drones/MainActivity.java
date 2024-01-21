@@ -53,7 +53,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 20);
-
+            }
+        });
+        Button cancelbutton = findViewById(R.id.cancelbutton);
+        cancelbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.cancelFetchingData();
             }
         });
     }

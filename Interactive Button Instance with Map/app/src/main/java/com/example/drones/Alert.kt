@@ -24,6 +24,7 @@ class Alert {
                             Toast.makeText(mainActivity.getApplicationContext(), alat+" "+alon, Toast.LENGTH_SHORT)
                                 .show()
                         }
+                        //cancelFetchingData()
                     }
 
                     override fun onFailure(call: Call<AircraftResponse>, t: Throwable) {
