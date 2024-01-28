@@ -41,10 +41,10 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         backButton.setOnClickListener {
             finish() // This will close the current activity and return to the previous one
         }
-        if(intent.hasExtra(MainActivity.APIDATA_CODE)){
+        if(intent.hasExtra(MainActivity.ALERT)){
             //getting the Parcelable object into the employeeModel
             //employeeModel= intent.getParcelableExtra(MainActivity.SECOND_ACTIVITY_CODE)
-            firstLat = intent.getDoubleExtra(APIDATA_CODE, -1.0)
+            //firstLat = intent.getDoubleExtra(APIDATA_CODE, -1.0)
         }
     }
     // [END maps_marker_get_map_async]
