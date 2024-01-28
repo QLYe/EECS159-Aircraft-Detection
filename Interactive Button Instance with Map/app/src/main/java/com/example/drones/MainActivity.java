@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         Alert alert = new Alert();
+        alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 20);
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 20);
+                alert.startAlertDetection();
             }
         });
         Button cancelbutton = findViewById(R.id.cancelbutton);
