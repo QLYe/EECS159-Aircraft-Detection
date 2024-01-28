@@ -14,6 +14,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Vector;
 import java.util.List;
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng uci = new LatLng(33.6424, -117.8417);
+//        mMap.addMarker(new MarkerOptions().position(uci).title("Marker at UCI"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uci, 10));
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
