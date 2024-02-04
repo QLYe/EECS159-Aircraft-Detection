@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".MainActivity">
 
     <Button
@@ -11,15 +12,13 @@
         android:layout_width="293dp"
         android:layout_height="81dp"
         android:layout_marginStart="59dp"
-        android:layout_marginTop="31dp"
         android:layout_marginEnd="59dp"
+        android:layout_marginBottom="24dp"
         android:text="Cancel Detection"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button1"
@@ -78,34 +77,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <fragment
-        android:id="@+id/map_preview"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="404dp"
-        android:layout_height="256dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="404dp"
-        app:layout_constraintBottom_toTopOf="@+id/button1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-
     <Button
         android:id="@+id/button"
         android:layout_width="293dp"
         android:layout_height="81dp"
         android:layout_marginStart="59dp"
-        android:layout_marginTop="31dp"
         android:layout_marginEnd="59dp"
         android:text="Start Detection"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/cancelbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.543" />
+
+    <fragment
+        android:id="@+id/map_preview"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="411dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="392dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/returnButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#10D3DA"
+        android:backgroundTint="#10DCCA"
+        android:text="Return"
+        android:textColorHighlight="#13DFDF"
+        android:textColorLink="#0EE4DD"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,17 @@
 package com.example.drones;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 30);
+        alert.fetchAircraftData(MainActivity.this, 33.6424, -117.8417, 10);
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
 
@@ -76,12 +81,60 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                Intent intent = new Intent(MainActivity.this, MapsMarkerActivity.class);
-                startActivity(intent);
+                View fragmentMap = findViewById(R.id.map_preview);
+                View returnButtonView = findViewById(R.id.returnButton);
+
+
+
+                makeFragmentFullScreen(fragmentMap);
+                returnButtonView.setVisibility(returnButtonView.VISIBLE);
+                Button returnButton = findViewById(R.id.returnButton);
+                returnButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        resizeView(fragmentMap, 411, 256, 404);
+                        findViewById(R.id.returnButton).setVisibility(returnButtonView.INVISIBLE);
+
+                    }
+                });
             }
         });
     }
 
+    private void resizeView(View f, int newWidth, int newHeight, int newTopAlignment) {
+        if (f != null) {
+            int w = (int) Math.floor(dpToPx(newWidth));
+            int h = (int) Math.floor(dpToPx(newHeight));
+            int top_margin = (int) Math.floor(dpToPx(newTopAlignment));
+            View view = f;
+            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(w, h);
+            p.topMargin = top_margin;
+            p.alignWithParent = true;
+            view.setLayoutParams(p);
+            view.requestLayout();
 
+
+        }
+    }
+
+    private float dpToPx(float dip)
+    {
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                r.getDisplayMetrics()
+        );
+        return px;
+    }
+
+    private void makeFragmentFullScreen(View fragmentView) {
+        if (fragmentView != null) {
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            fragmentView.setLayoutParams(params);
+        }
+    }
 
 }
