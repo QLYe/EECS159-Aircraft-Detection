@@ -1,6 +1,8 @@
 package com.example.drones;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
 
-        Button button1 = findViewById(R.id.button1);
+        /*Button button1 = findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 //intent1.putExtra(ALERT, alert);
                 startActivity(intent1);
             }
-        });
+        });*/
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_preview);
         if (mapFragment != null) {
@@ -84,17 +86,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 View fragmentMap = findViewById(R.id.map_preview);
                 View returnButtonView = findViewById(R.id.returnButton);
 
-
-
                 makeFragmentFullScreen(fragmentMap);
                 returnButtonView.setVisibility(returnButtonView.VISIBLE);
                 Button returnButton = findViewById(R.id.returnButton);
                 returnButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        resizeView(fragmentMap, 411, 256, 404);
+                        resizeView(fragmentMap, 411, 256, 404);//256
                         findViewById(R.id.returnButton).setVisibility(returnButtonView.INVISIBLE);
-
                     }
                 });
             }
@@ -107,13 +106,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             int h = (int) Math.floor(dpToPx(newHeight));
             int top_margin = (int) Math.floor(dpToPx(newTopAlignment));
             View view = f;
-            RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(w, h);
-            p.topMargin = top_margin;
-            p.alignWithParent = true;
+
+
+
+            ConstraintLayout.LayoutParams p = new ConstraintLayout.LayoutParams(w, h);
+            p.topToTop = R.id.parent;
+            p.bottomToBottom = R.id.parent;
+            p.startToStart = R.id.parent;
+            p.endToEnd = R.id.parent;
+            p.verticalBias = (float) 0.831;
+            p.horizontalBias = (float) 0;
             view.setLayoutParams(p);
-            view.requestLayout();
-
-
         }
     }
 
