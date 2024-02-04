@@ -110,12 +110,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
             ConstraintLayout.LayoutParams p = new ConstraintLayout.LayoutParams(w, h);
-            p.topToTop = R.id.parent;
-            p.bottomToBottom = R.id.parent;
+            //p.topToTop = R.id.parent;
+            //p.bottomToBottom = R.id.parent;
             p.startToStart = R.id.parent;
-            p.endToEnd = R.id.parent;
-            p.verticalBias = (float) 0.831;
+            //p.endToEnd = R.id.parent;
+            //p.verticalBias = (float) 0.831;
             p.horizontalBias = (float) 0;
+            p.topToBottom = R.id.textView5;
             view.setLayoutParams(p);
         }
     }
