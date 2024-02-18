@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             this.finishAffinity();
             return;
         }
+
+
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
