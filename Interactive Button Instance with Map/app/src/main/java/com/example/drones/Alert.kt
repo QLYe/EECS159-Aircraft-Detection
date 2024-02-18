@@ -4,6 +4,7 @@ import android.widget.Toast
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -96,7 +97,7 @@ class Alert {
     fun fragmentMapFunction(aircraft: Aircraft){
         val one_aircraft = LatLng(aircraft.lat, aircraft.lon)
         fragment_map?.addMarker(
-            MarkerOptions().position(one_aircraft).title("one aircraft")
+            MarkerOptions().position(one_aircraft).title("one aircraft").icon(BitmapDescriptorFactory.fromAsset("airplane_icon.png"))
         )
     }
 }
