@@ -19,7 +19,7 @@ class Alert {
     var fragment_map : GoogleMap?=null
     var fragment_map_set = false
     var fragment_marker_on = false
-    fun fetchAircraftData(mainActivity:MainActivity, lat: Double, lon: Double, radius: Double) {
+    fun fetchAircraftData(mainActivity:MainActivity, radius: Double) {
             val timerTask = object : TimerTask() {
                 override fun run() {
 
@@ -34,7 +34,7 @@ class Alert {
                             )
                             **/
                         }
-                        val call = RetrofitClient.instance.getAircraftData(lat, lon, radius)
+                        val call = RetrofitClient.instance.getAircraftData(mainActivity.getLat(), mainActivity.getLon(), radius)
                         call.enqueue(object : Callback<AircraftResponse> {
                             override fun onResponse(
                                 call: Call<AircraftResponse>,

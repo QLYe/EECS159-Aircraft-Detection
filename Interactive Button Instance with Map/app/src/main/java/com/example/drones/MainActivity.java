@@ -39,13 +39,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ApiData apidata = new ApiData();
     public static final String ALERT = "alert";
     private Alert alert = new Alert();
+    private double lat = 0, lon = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = new MyLocListener();
+        LocationListener locationListener = new MyLocListener(MainActivity.this);
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -63,17 +64,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitude = location.getLongitude();
-        double latitude = location.getLatitude();
-        Log.d("longitude debug", Double.toString(longitude));
-        Log.d("latitude debug", Double.toString(latitude));
-        Toast.makeText(
+        //double longitude = location.getLongitude();
+        //double latitude = location.getLatitude();
+        //Log.d("longitude debug", Double.toString(longitude));
+        //Log.d("latitude debug", Double.toString(latitude));
+        /*Toast.makeText(
                 this.getApplicationContext(),
                 longitude + " " + latitude,
                 Toast.LENGTH_LONG
-        );
+        );*/
         //33.6424, -117.8417
-        alert.fetchAircraftData(MainActivity.this, latitude, longitude, 50);
+        alert.fetchAircraftData(MainActivity.this, 50);
 
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
@@ -179,4 +180,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    public void setLatLon(double lat, double lon)
+    {
+        this.lat = lat;
+        this.lon = lon;
+    }
+
+    public double getLat()
+    {
+        return lat;
+    }
+
+    public double getLon()
+    {
+        return lon;
+    }
 }
