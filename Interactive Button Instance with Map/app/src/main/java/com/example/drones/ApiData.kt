@@ -27,7 +27,7 @@ class ApiData (){
                     override fun onResponse(call: Call<AircraftResponse>, response: Response<AircraftResponse>) {
 
                         response.body()?.ac?.forEach { aircraft ->
-                            var templist = listOf(aircraft.lat, aircraft.lon, aircraft.speed)
+                            var templist = listOf(aircraft.lat, aircraft.lon, aircraft.nav_heading)
                             result.addElement(templist)
 
                         }

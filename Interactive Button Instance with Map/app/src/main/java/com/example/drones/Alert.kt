@@ -112,8 +112,10 @@ class Alert {
 
     fun fragmentMapFunction(aircraft: Aircraft){
         val one_aircraft = LatLng(aircraft.lat, aircraft.lon)
+        val AircraftAngle = aircraft.nav_heading
+
         fragment_map?.addMarker(
-            MarkerOptions().position(one_aircraft).title("one aircraft").icon(BitmapDescriptorFactory.fromAsset("airplane_icon.png"))
+            MarkerOptions().position(one_aircraft).anchor(0.5f, 0.5f).rotation(AircraftAngle.toFloat()).title("one aircraft").icon(BitmapDescriptorFactory.fromAsset("airplane_icon.png"))
         )
     }
 

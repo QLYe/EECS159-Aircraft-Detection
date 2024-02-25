@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng uci = new LatLng(33.6424, -117.8417);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uci, 10));
         alert.setFragmentMap(mMap);
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
