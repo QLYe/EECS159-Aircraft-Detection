@@ -65,7 +65,6 @@ class MapsMarkerActivity : AppCompatActivity(), OnMapReadyCallback {
         //apidata.fetchAircraftData(33.6424, -117.8417, 20.0)
 
         Log.d("first lat test", firstLat.toString())
-
         //fetchAircraftData(googleMap,33.6424, -117.8417, 20.0, this)
         /*Timer().schedule(
             object : TimerTask() {
