@@ -1,18 +1,13 @@
 package com.example.drones;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +16,13 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.location.LocationManager;
 import android.location.LocationListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
-import java.util.Vector;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -41,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final String ALERT = "alert";
     private Alert alert = new Alert();
     private double lat = 0, lon = 0;
+
+    private boolean detecting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.LENGTH_LONG
         );*/
         //33.6424, -117.8417
-        alert.fetchAircraftData(MainActivity.this, 50);
+        alert.fetchAircraftData(MainActivity.this, 50, 5);
 
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
@@ -105,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 alert.startAlertDetection();
                 TextView mytxt=(TextView ) findViewById(R.id.textView2);
                 mytxt.setText("Current Status: Detecting");
+                detecting = true;
+                findTextViewByID(R.id.NearestAircraft).setText("Nearest Aircraft: Fetching");
             }
         });
         Button cancelbutton = findViewById(R.id.cancelbutton);
@@ -114,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 alert.cancelFetchingData();
                 TextView mytxt=(TextView ) findViewById(R.id.textView2);
                 mytxt.setText("Current Status: Idle");
+                detecting = false;
+                TextView nearestAircraftTxt=(TextView ) findViewById(R.id.NearestAircraft);
+                nearestAircraftTxt.setText("Nearest Aircraft: N/A");
+                findTextViewByID(R.id.NearestAircraft).setText("Nearest Aircraft: N/A");
+                findTextViewByID(R.id.SafetyLevel).setText("Safety Level: N/A");
             }
         });
     }
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //p.verticalBias = (float) 0.831;
             p.topMargin = (int) Math.floor(dpToPx(3f));
             p.horizontalBias = (float) 0;
-            p.topToBottom = R.id.textView5;
+            p.topToBottom = R.id.Alert;
             view.setLayoutParams(p);
         }
     }
@@ -202,4 +201,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     {
         return lon;
     }
+    public TextView findTextViewByID(int id)
+    {
+        return (TextView ) findViewById(id);
+    }
+
 }

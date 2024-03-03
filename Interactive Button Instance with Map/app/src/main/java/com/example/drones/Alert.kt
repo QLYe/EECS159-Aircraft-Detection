@@ -1,12 +1,12 @@
 package com.example.drones
 
-import android.widget.Toast
-import android.media.MediaPlayer;
 import android.content.Context
+import android.media.MediaPlayer
+import android.widget.Toast
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +23,9 @@ class Alert {
     var fragment_map_set = false
     var fragment_marker_on = false
     var musicPlayable = true
-    fun fetchAircraftData(mainActivity:MainActivity, radius: Double) {
+    var closestDistance = 1000000.0
+    var alarm = false
+    fun fetchAircraftData(mainActivity:MainActivity, radius: Double, alertRange: Int) {
         val timerTask = object : TimerTask() {
             override fun run() {
 
@@ -47,7 +49,12 @@ class Alert {
                             musicPlayable = true
                             response.body()?.ac?.forEach { aircraft ->
                                 if (alert_on) {
-                                    alertFunction(aircraft, mainActivity, 5)
+
+                                    var aircraftDistance = alertFunction(aircraft, mainActivity, alertRange)
+                                    if (aircraftDistance < closestDistance)
+                                    {
+                                        closestDistance = aircraftDistance
+                                    }
                                 }
                                 if (fragment_marker_on) {
                                     fragmentMapFunction(aircraft)
@@ -63,6 +70,26 @@ class Alert {
                         }
                     })
                 }
+                if (alert_on)
+                {
+                    if (closestDistance > alertRange){
+                        mainActivity.findTextViewByID(R.id.SafetyLevel).setText("Safety Level: Safe")
+                    }
+
+                    if (closestDistance != 1000000.0) {
+                        mainActivity.findTextViewByID(R.id.NearestAircraft).setText(
+                            "Nearest Aircraft: " + String.format(
+                                "%.3f",
+                                closestDistance
+                            ) + " Nm"
+                        )
+                        closestDistance = 1000000.0
+                    }
+                    else{
+                        mainActivity.findTextViewByID(R.id.NearestAircraft).setText("Nearest Aircraft: N/A")
+                    }
+
+                }
             }
         }
         timer.scheduleAtFixedRate(timerTask, 0, 5000)
@@ -77,6 +104,7 @@ class Alert {
         /*timer.cancel();
         timer.purge();*/
         alert_on = false
+        closestDistance = 1000000.0
     }
 
     fun setFragmentMap(new_fragment_map: GoogleMap){
@@ -90,12 +118,13 @@ class Alert {
         fragment_marker_on = true
     }
 
-    fun alertFunction(aircraft: Aircraft,mainActivity:MainActivity, alertRange : Int){
+    fun alertFunction(aircraft: Aircraft,mainActivity:MainActivity, alertRange : Int): Double{
         val alat: String = String.format("%.3f", aircraft.lat)
         val alon: String = String.format("%.3f", aircraft.lon)
         var d = distance(mainActivity.getLat(), mainActivity.getLon(), aircraft.lat, aircraft.lon)
         if (d < alertRange)
         {
+            mainActivity.findTextViewByID(R.id.SafetyLevel).setText("Safety Level: Dangerous")
             Toast.makeText(
                 mainActivity.getApplicationContext(),
                 alat + " " + alon,
@@ -108,6 +137,7 @@ class Alert {
                 musicPlayable = false
             }
         }
+        return d
     }
 
     fun fragmentMapFunction(aircraft: Aircraft){
