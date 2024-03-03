@@ -21,5 +21,5 @@ data class AircraftResponse(
 data class Aircraft(
     val lat: Double,
     val lon: Double,
-    val speed: Double
+    val nav_heading: Double
 )
