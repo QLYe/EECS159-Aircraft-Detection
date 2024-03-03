@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double lat = 0, lon = 0;
 
     private boolean detecting = false;
+    private boolean alarm_on = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.LENGTH_LONG
         );*/
         //33.6424, -117.8417
-        alert.fetchAircraftData(MainActivity.this, 50, 5);
+        alert.fetchAircraftData(MainActivity.this, 50, 15);
 
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
@@ -113,6 +114,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 nearestAircraftTxt.setText("Nearest Aircraft: N/A");
                 findTextViewByID(R.id.NearestAircraft).setText("Nearest Aircraft: N/A");
                 findTextViewByID(R.id.SafetyLevel).setText("Safety Level: N/A");
+            }
+        });
+        Button alarmButton = findViewById(R.id.button1);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.setAlarm();
+                alarm_on = !alarm_on;
+                TextView alarmText=(TextView ) findViewById(R.id.Alert);
+                if (alarm_on)
+                {
+                    alarmButton.setText("Turn off alarm");
+                    alarmText.setText("Alarm: On");
+                }
+                else
+                {
+                    alarmButton.setText("Turn on alarm");
+                    alarmText.setText("Alarm: Off");
+                }
+
             }
         });
     }

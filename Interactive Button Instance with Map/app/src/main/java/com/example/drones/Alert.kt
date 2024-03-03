@@ -131,10 +131,11 @@ class Alert {
                 Toast.LENGTH_SHORT
             )
                 .show()
-            if (musicPlayable)
-            {
-                playAlertSound(mainActivity)
-                musicPlayable = false
+            if (alarm) {
+                if (musicPlayable) {
+                    playAlertSound(mainActivity)
+                    musicPlayable = false
+                }
             }
         }
         return d
@@ -160,6 +161,10 @@ class Alert {
         mediaPlayer.start()
     }
 
+    public fun setAlarm()
+    {
+        alarm = !alarm;
+    }
     private fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
         val theta = lon1 - lon2
         var dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta))
