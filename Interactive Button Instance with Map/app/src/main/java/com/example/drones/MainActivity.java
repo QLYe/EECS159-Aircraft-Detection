@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.location.LocationManager;
 import android.location.LocationListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 alert.startAlertDetection();
+                TextView mytxt=(TextView ) findViewById(R.id.textView2);
+                mytxt.setText("Current Status: Detecting");
             }
         });
         Button cancelbutton = findViewById(R.id.cancelbutton);
@@ -109,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 alert.cancelFetchingData();
+                TextView mytxt=(TextView ) findViewById(R.id.textView2);
+                mytxt.setText("Current Status: Idle");
             }
         });
     }
