@@ -118,5 +118,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/AlertRangeInput"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="5 "
+        android:inputType="number|numberDecimal"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="337dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="118dp"
+        android:layout_height="28dp"
+        android:text="Alert Range (Nm):"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="351dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

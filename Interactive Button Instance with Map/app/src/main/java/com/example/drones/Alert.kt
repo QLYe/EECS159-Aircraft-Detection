@@ -25,10 +25,11 @@ class Alert {
     var musicPlayable = true
     var closestDistance = 1000000.0
     var alarm = false
-    fun fetchAircraftData(mainActivity:MainActivity, radius: Double, alertRange: Int) {
+    fun fetchAircraftData(mainActivity:MainActivity, radius: Double) {
         val timerTask = object : TimerTask() {
             override fun run() {
-
+                mainActivity.updateAlertRange()
+                var alertRange = mainActivity.getAlertRange()
                 if (alert_on or fragment_marker_on) {
                     if (fragment_map_set && fragment_map != null) {
                         mainActivity.runOnUiThread {
@@ -118,7 +119,7 @@ class Alert {
         fragment_marker_on = true
     }
 
-    fun alertFunction(aircraft: Aircraft,mainActivity:MainActivity, alertRange : Int): Double{
+    fun alertFunction(aircraft: Aircraft,mainActivity:MainActivity, alertRange : Double): Double{
         val alat: String = String.format("%.3f", aircraft.lat)
         val alon: String = String.format("%.3f", aircraft.lon)
         var d = distance(mainActivity.getLat(), mainActivity.getLon(), aircraft.lat, aircraft.lon)

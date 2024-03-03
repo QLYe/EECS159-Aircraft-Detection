@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.os.Bundle;
 import android.location.LocationManager;
 import android.location.LocationListener;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private boolean detecting = false;
     private boolean alarm_on = false;
+
+    private Double alertRange = 5.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.LENGTH_LONG
         );*/
         //33.6424, -117.8417
-        alert.fetchAircraftData(MainActivity.this, 50, 15);
+        alert.fetchAircraftData(MainActivity.this, 50);
+
 
         //refresh apidata
         //apidata.fetchAircraftData(33.6424, -117.8417, 20);
@@ -228,5 +233,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     {
         return (TextView ) findViewById(id);
     }
+
+    public Double getAlertRange()
+    {
+        return alertRange;
+    }
+
+    public void updateAlertRange(){
+        EditText alertRangeInputView = (EditText) findViewById(R.id.AlertRangeInput);
+        if (!alertRangeInputView.getText().toString().isEmpty()) {
+            alertRange = Double.parseDouble(alertRangeInputView.getText().toString());
+        }
+        else {
+            alertRange = 5.0;
+        }
+
+    }
+
 
 }
