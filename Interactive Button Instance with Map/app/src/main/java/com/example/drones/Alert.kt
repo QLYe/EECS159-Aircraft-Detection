@@ -7,6 +7,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -124,14 +125,10 @@ class Alert {
         var d = distance(mainActivity.getLat(), mainActivity.getLon(), aircraft.lat, aircraft.lon)
         if (d < alertRange)
         {
-            mainActivity.findTextViewByID(R.id.SafetyLevel).setText("Safety Level: Dangerous")
-            Toast.makeText(
-                mainActivity.getApplicationContext(),
-                alat + " " + alon,
-                Toast.LENGTH_SHORT
-            )
-                .show()
             if (alarm) {
+                val alramButton = mainActivity.findTextViewByID(R.id.button1)
+                Snackbar.make(alramButton, "AirCraft Nearby Detected. ", Snackbar.LENGTH_LONG)
+                    .show()
                 if (musicPlayable) {
                     playAlertSound(mainActivity)
                     musicPlayable = false
