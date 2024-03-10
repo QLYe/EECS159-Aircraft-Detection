@@ -129,14 +129,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="118dp"
-        android:layout_height="25dp"
+        android:layout_width="95dp"
+        android:layout_height="55dp"
         android:text="Alert Range (Nm):"
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="351dp"
-
+        android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/SafetyLevel"
-        app:layout_constraintBottom_toTopOf="@id/AlertRangeInput" />
+        app:layout_constraintBottom_toBottomOf="@id/AlertRangeInput" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
