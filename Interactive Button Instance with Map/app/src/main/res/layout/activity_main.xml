@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/SafetyLevel"
-        android:layout_width="239dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginStart="59dp"
         android:layout_marginTop="2dp"
@@ -117,21 +117,26 @@
 
     <EditText
         android:id="@+id/AlertRangeInput"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:hint="5 "
         android:inputType="number|numberDecimal"
         tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="337dp" />
+        tools:layout_editor_absoluteY="337dp"
+        app:layout_constraintEnd_toEndOf="@+id/button1"
+        app:layout_constraintBottom_toTopOf="@id/button1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="118dp"
-        android:layout_height="28dp"
+        android:layout_height="25dp"
         android:text="Alert Range (Nm):"
         tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="351dp" />
+        tools:layout_editor_absoluteY="351dp"
+
+        app:layout_constraintStart_toEndOf="@+id/SafetyLevel"
+        app:layout_constraintBottom_toTopOf="@id/AlertRangeInput" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
