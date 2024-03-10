@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
@@ -99,9 +101,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         Button button = findViewById(R.id.button);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Double.isNaN(alertRange)) {
+                    Toast.makeText(getApplicationContext(),"wrong number",
+                            Toast.LENGTH_SHORT).show();
+                    //Setting message manually and performing action on button click
+                    builder.setMessage("Please input a valid number.")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            });
+                    //Creating dialog box
+                    AlertDialog dlg = builder.create();
+                    //Setting the title manually
+                    dlg.setTitle("InvalidNumber");
+                    dlg.show();
+                    return;
+                }
                 alert.startAlertDetection();
                 TextView mytxt=(TextView ) findViewById(R.id.textView2);
                 mytxt.setText("Current Status: Detecting");
@@ -236,13 +256,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public Double getAlertRange()
     {
+        if (alertRange.isNaN())
+        {
+            return 5.0;
+        }
         return alertRange;
     }
 
     public void updateAlertRange(){
         EditText alertRangeInputView = (EditText) findViewById(R.id.AlertRangeInput);
         if (!alertRangeInputView.getText().toString().isEmpty()) {
-            alertRange = Double.parseDouble(alertRangeInputView.getText().toString());
+            try {
+                alertRange = Double.parseDouble(alertRangeInputView.getText().toString());
+            } catch (NumberFormatException e) {
+
+                alertRange = Double.NaN; // or some other default value
+            }
         }
         else {
             alertRange = 5.0;
