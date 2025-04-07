@@ -2,8 +2,6 @@
 
 A real-time Android application designed to enhance Unmanned Aerial Vehicle (UAV) safety by providing drone pilots with instant awareness of nearby manned aircraft using data from the ADS-B One database.
 
-![App Screenshot](https://drive.google.com/uc?id=1grgi_IrU_1VDEbz03fMFfG5Xz_I7ZZQv)
-
 ## Overview
 
 As UAV usage increases, so does the risk of collisions with manned aircraft at low altitudes. Our Android app helps mitigate this risk by alerting users when aircraft enter a user-defined safety radius. The app visually displays aircraft on a map interface and can trigger warnings via sound and pop-ups when potential collisions are detected.
