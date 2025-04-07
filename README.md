@@ -37,12 +37,6 @@ Test cases ensured:
 - Accuracy of detection radius changes
 - Alert systems function as expected
 
-## Screenshots
-
-| Fall Prototype | Updated Map View | Alert Interface |
-|----------------|------------------|------------------|
-| ![Fig 2](https://drive.google.com/uc?id=1wGLAOEY9vNVVWMLz7PaL-r4cwi7V9wzy) | ![Fig 8](https://drive.google.com/uc?id=1VVrSr55jrm9vaWUAZzswFhmv-vK5zpuI) | ![Fig 1](https://drive.google.com/uc?id=1njRvmxxsknnBypcu8Cwgzd0CWJWhg2cv) |
-
 ## Licensing
 
 This project is open-sourced under the MIT License, allowing free use, modification, and distribution under proper attribution.
